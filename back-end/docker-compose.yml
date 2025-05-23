@@ -5,11 +5,13 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/streamingdb
+      - LOCAL_MONGO_URI=mongodb://mongo:27017/streamingdb
       - JWT_SECRET=supersecretjwtkey
       - PORT=3000
     depends_on:
       - mongo
+    volumes:
+      - ./.env:/app/.env
 
   mongo:
     image: mongo:6.0

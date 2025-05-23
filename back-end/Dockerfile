@@ -1,8 +1,7 @@
-# Use Node 18 LTS
 FROM node:18
 
-# Define diretório de trabalho
-WORKDIR /usr/src/app
+# Define diretório de trabalho no container
+WORKDIR /app
 
 # Copia package.json e package-lock.json
 COPY package*.json ./
@@ -10,10 +9,10 @@ COPY package*.json ./
 # Instala dependências
 RUN npm install
 
-# Copia o restante do código
+# Copia todo o restante (inclusive o .env)
 COPY . .
 
-# Expõe porta padrão
+# Expõe a porta da aplicação
 EXPOSE 3000
 
 # Comando para iniciar a aplicação

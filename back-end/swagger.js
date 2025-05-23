@@ -1,33 +1,40 @@
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const options = {
   definition: {
-    openapi: "3.0.0",
+    openapi: '3.0.1',
     info: {
-      title: "LuaPlay API",
-      version: "1.0.0",
-      description: "API para gerenciamento de usuários e playlists na plataforma LuaPlay",
+      title: 'API de Streaming',
+      version: '1.0.0',
+      description: 'Documentação da API de Streaming usando Swagger',
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: 'http://localhost:3000', // URL base da sua API
       },
     ],
     components: {
       securitySchemes: {
         bearerAuth: {
-          type: "http",
-          scheme: "bearer",
-          bearerFormat: "JWT",
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
         },
       },
     },
-    security: [{ bearerAuth: [] }],
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
-  apis: ["./src/routes/*.js"],
+  apis: ['./src/docs/**/*.js'], // agora aponta para os arquivos de doc
 };
 
-const specs = swaggerJsDoc(options);
+const specs = swaggerJSDoc(options);
 
-module.exports = { swaggerUi, specs };
+module.exports = {
+  swaggerUi,
+  specs,
+};

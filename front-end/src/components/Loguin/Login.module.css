@@ -1,0 +1,58 @@
+.loginContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #141414; /* cor escura tipo Netflix */
+}
+
+.loginForm {
+  background: #222;
+  padding: 40px 30px;
+  border-radius: 8px;
+  width: 320px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 24px;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+label {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+input {
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: 2px solid #E50914; /* vermelho Netflix */
+}
+
+.loginButton {
+  margin-top: 24px;
+  padding: 12px;
+  background-color: #E50914;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.loginButton:hover {
+  background-color: #f40612;
+}

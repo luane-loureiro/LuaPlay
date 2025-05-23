@@ -5,36 +5,46 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
 
 exports.register = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    if(!email || !password) return res.status(400).json({ message: 'E-mail e senha necessários' });
+    const { username, email, password } = req.body;
+    if (!username || !email || !password)
+      return res.status(400).json({ message: 'Todos os campos são necessários' });
 
-    const userExists = await User.findOne({ email });
-    if(userExists) return res.status(409).json({ message: 'O usuário já existe' });
+    const userExists = await User.findOne({ username });
+    if (userExists) return res.status(409).json({ message: 'Nome de usuário já existe' });
 
-    const user = new User({ email, password });
+    const emailExists = await User.findOne({ email });
+    if (emailExists) return res.status(409).json({ message: 'E-mail já cadastrado' });
+
+    // Como a senha será criptografada no 'pre save', não precisa fazer hash aqui
+    const user = new User({ username, email, password });
     await user.save();
 
-    res.status(201).json({ message: 'Usuário Criado com Sucesso' });
+    return res.status(201).json({ message: 'Usuário criado com sucesso' });
   } catch (err) {
-    res.status(500).json({ message: 'Erro no Servidor', error: err.message });
+    console.error(err);
+    return res.status(500).json({ message: 'Erro no servidor', error: err.message });
   }
 };
 
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if(!email || !password) return res.status(400).json({ message: 'E-mail e senha necessários' });
+    if (!email || !password)
+      return res.status(400).json({ message: 'E-mail e senha são necessários' });
 
     const user = await User.findOne({ email });
-    if(!user) return res.status(401).json({ message: 'Login inválido' });
+    if (!user) return res.status(401).json({ message: 'Login inválido' });
 
     const isMatch = await user.comparePassword(password);
-    if(!isMatch) return res.status(401).json({ message: 'Login inválido' });
+    if (!isMatch) return res.status(401).json({ message: 'Login inválido' });
 
-    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
+      expiresIn: '1d',
+    });
 
-    res.json({ token });
+    return res.json({ token });
   } catch (err) {
-    res.status(500).json({ message: 'Erro no Servidor', error: err.message });
+    console.error(err);
+    return res.status(500).json({ message: 'Erro no servidor', error: err.message });
   }
 };

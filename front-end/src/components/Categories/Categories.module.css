@@ -1,0 +1,26 @@
+.categoriesContainer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 0;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.categoriesContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.categoryButton {
+  background-color: #ff6347; /* exemplo cor */
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.categoryButton:hover {
+  background-color: #e5533d;
+}

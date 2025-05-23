@@ -1,18 +1,22 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 
+const { swaggerUi, specs } = require('./swagger');
+
+
 const authRoutes = require('./src/routes/authRoutes');
-const mediaRoutes = require('./src/routes/mediaRoutes');
 const playlistRoutes = require('./src/routes/playlistRoutes');
+const mediaRoutes = require('./src/routes/mediaRoutes');
+const categoryRoutes = require('./src/routes/categoryRoutes');
 
 app.use(express.json());
 
-app.use('/auth', authRoutes);
-app.use('/media', mediaRoutes);
-app.use('/playlists', playlistRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
-app.get('/', (req, res) => {
-  res.send('API Streaming - OK');
-});
+app.use('/auth', authRoutes);
+app.use('/api/playlists', playlistRoutes);
+app.use('/api/medias', mediaRoutes);
+app.use('/categories', categoryRoutes);
 
 module.exports = app;

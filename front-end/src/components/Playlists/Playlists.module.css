@@ -1,0 +1,44 @@
+.playlists {
+  padding: 20px;
+}
+
+.playlist {
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+.videos {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.videoCard {
+  min-width: 180px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.videoCard:hover {
+  transform: scale(1.05);
+}
+
+.thumbnail {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  height: 100px;
+}
+
+.videoTitle {
+  margin-top: 8px;
+  font-size: 1rem;
+  color: #444;
+  text-align: center;
+}
